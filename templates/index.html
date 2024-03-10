@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% block head %}
+
+
+{% endblock %}
+
+{% block body %}
+<div class="container">
+    <div class="box">
+        <h1> Decks: </h1>
+    </div>
+    {% if decks|length < 1 %}
+    <h4>There are no Decks. Create one below:</h4>
+    {% else %}
+    <table class="box">
+        {% for deck in decks %}
+            <tr>
+                <td><h2><a href="{{ url_for('deck', deck_id=deck.id) }}">{{deck.name}}</a></h2></td>
+                <td>{{ deck.created_at.date() }}</td>
+                <td>
+                    <div class="button" id="delete"><a href="delete/{{deck.id}}">Delete</a></div>
+                </td>
+            </tr>
+        {% endfor %}
+    </table>
+    {% endif %}
+</div>
+<div class="container">
+    <div class="box">
+        <form action="/" method="POST">
+            <input type="text" name="name" id="name">
+            <input type="submit" value="Create Deck">
+        </form>
+    </div>
+</div>
+
+{% endblock %}
